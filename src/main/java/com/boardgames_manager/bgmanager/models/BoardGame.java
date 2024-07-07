@@ -15,7 +15,7 @@ enum DifficultyLevel {
 @Table(name = "boardgames")
 public class BoardGame {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int no_players;
@@ -38,4 +38,101 @@ public class BoardGame {
         this.description = description;
         this.image_url = image_url;
     }
+
+    public Long getId()
+    {
+        return this.id;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public int getNoPlayers()
+    {
+        return this.no_players;
+    }
+
+    public int getDuration()
+    {
+        return this.duration;
+    }
+
+    public DifficultyLevel getDifficultyLevel()
+    {
+        return this.difficulty;
+    }
+
+    public String getCategory()
+    {
+        return this.category;
+    }
+
+    public float getPersonalRate()
+    {
+        return this.personal_rate;
+    }
+
+    public String getDescription()
+    {
+        return this.description;
+    }
+
+    public String getImageUrl()
+    {
+        return this.image_url;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setNoPlayers(int no_players)
+    {
+        this.no_players = no_players;
+    }
+
+    public void setDuration(int duration)
+    {
+        this.duration = duration;
+    }
+
+    public void setDifficultyLevel(DifficultyLevel difficulty)
+    {
+        this.difficulty = difficulty;
+    }
+
+    public void setCategory(String category)
+    {
+        this.category = category;
+    }
+
+    public void setPersonalRate(float personal_rate)
+    {
+        this.personal_rate = personal_rate;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public void setImageUrl(String image_url)
+    {
+        this.image_url = image_url;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "BoardGame{" + "id=" + this.id + ", name=" + this.name + ", no_players" + this.no_players;
+    }
+
 }
