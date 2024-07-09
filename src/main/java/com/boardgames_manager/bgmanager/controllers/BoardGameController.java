@@ -8,8 +8,11 @@ import com.boardgames_manager.bgmanager.repositories.BoardGameRepository;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -24,18 +27,19 @@ public class BoardGameController {
 
     @GetMapping("/boards")
     List<BoardGame> all() {
-        List<BoardGame> found_games = board_game_repository_.findAll();
-
-        for (BoardGame bg : found_games) {
-            System.out.println(bg.toString());
-        }
-        return found_games;
+        return board_game_repository_.findAll();
     }
 
     @PostMapping("/boards")
     BoardGame StoreGame(@RequestBody BoardGame board_game) {
         return board_game_repository_.save(board_game);
     }
+
+    @GetMapping("/boards/{name}")
+    BoardGame getMethodName(@PathVariable String name) {
+        return board_game_repository_.findByName(name);
+    }
+    
     
     
 }

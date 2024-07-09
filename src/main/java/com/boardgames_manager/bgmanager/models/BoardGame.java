@@ -1,9 +1,12 @@
 package com.boardgames_manager.bgmanager.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 enum DifficultyLevel {
@@ -24,7 +27,9 @@ public class BoardGame {
     private String category; // todo: create categories instead of using string
     private float personal_rate;
     private String description;
-    private String image_url; // todo: images should be stored in aws
+    private String image_url; // todo: images should be stored in aws s3
+    @ManyToMany(mappedBy = "boardGames")
+    private List<User> users;
 
     protected BoardGame() {}
 
@@ -84,6 +89,11 @@ public class BoardGame {
         return this.image_url;
     }
 
+    public List<User> getUsers()
+    {
+        return this.users;
+    }
+
     public void setId(Long id)
     {
         this.id = id;
@@ -127,6 +137,11 @@ public class BoardGame {
     public void setImageUrl(String image_url)
     {
         this.image_url = image_url;
+    }
+
+    public void setUsers(List<User> users)
+    {
+        this.users = users;
     }
 
     @Override

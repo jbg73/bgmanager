@@ -7,5 +7,5 @@ import com.boardgames_manager.bgmanager.models.BoardGame;
 
 public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
 
-    List<BoardGame> findByName(String name);
+    BoardGame findByName(String name);
 }
