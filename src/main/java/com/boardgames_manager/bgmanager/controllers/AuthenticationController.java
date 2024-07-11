@@ -23,6 +23,7 @@ public class AuthenticationController {
     public ResponseEntity<UserCreationRequest> registration( @RequestBody UserCreationRequest userDto) {
         
         System.out.println("Trying to register new user...");
+        userService.CreateUser(userDto);
         return new ResponseEntity<UserCreationRequest>(userDto, HttpStatus.OK);
     }
     
