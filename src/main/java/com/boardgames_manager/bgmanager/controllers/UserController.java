@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @RestController
 public class UserController {
-    
+
     @Autowired
     private UserRepository user_repository_;
 
@@ -28,17 +26,15 @@ public class UserController {
         User user = new User(userRequest.getName());
         return user_repository_.save(user);
     }
-    
 
     @GetMapping("/users/{user_name}/games")
     List<BoardGame> DisplayUserGames(@PathVariable String user_name) {
         User user = user_repository_.findByName(user_name);
 
-        if (user == null)
-        {
+        if (user == null) {
             return null;
         }
         return user.getBoardGames();
     }
-    
+
 }

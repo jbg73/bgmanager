@@ -13,7 +13,6 @@ enum DifficultyLevel {
     EASY, NORMAL, HARD
 };
 
-
 @Entity
 @Table(name = "boardgames")
 public class BoardGame {
@@ -31,7 +30,8 @@ public class BoardGame {
     @ManyToMany(mappedBy = "boardGames")
     private List<User> users;
 
-    protected BoardGame() {}
+    protected BoardGame() {
+    }
 
     public BoardGame(int no_players, int duration, DifficultyLevel difficulty, String category,
             float personal_rate, String description, String image_url) {
@@ -44,109 +44,88 @@ public class BoardGame {
         this.image_url = image_url;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return this.id;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
-    public int getNoPlayers()
-    {
+    public int getNoPlayers() {
         return this.no_players;
     }
 
-    public int getDuration()
-    {
+    public int getDuration() {
         return this.duration;
     }
 
-    public DifficultyLevel getDifficultyLevel()
-    {
+    public DifficultyLevel getDifficultyLevel() {
         return this.difficulty;
     }
 
-    public String getCategory()
-    {
+    public String getCategory() {
         return this.category;
     }
 
-    public float getPersonalRate()
-    {
+    public float getPersonalRate() {
         return this.personal_rate;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return this.description;
     }
 
-    public String getImageUrl()
-    {
+    public String getImageUrl() {
         return this.image_url;
     }
 
-    public List<User> getUsers()
-    {
+    public List<User> getUsers() {
         return this.users;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setNoPlayers(int no_players)
-    {
+    public void setNoPlayers(int no_players) {
         this.no_players = no_players;
     }
 
-    public void setDuration(int duration)
-    {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public void setDifficultyLevel(DifficultyLevel difficulty)
-    {
+    public void setDifficultyLevel(DifficultyLevel difficulty) {
         this.difficulty = difficulty;
     }
 
-    public void setCategory(String category)
-    {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public void setPersonalRate(float personal_rate)
-    {
+    public void setPersonalRate(float personal_rate) {
         this.personal_rate = personal_rate;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setImageUrl(String image_url)
-    {
+    public void setImageUrl(String image_url) {
         this.image_url = image_url;
     }
 
-    public void setUsers(List<User> users)
-    {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "BoardGame{" + "id=" + this.id + ", name=" + this.name + ", no_players" + this.no_players;
     }
 

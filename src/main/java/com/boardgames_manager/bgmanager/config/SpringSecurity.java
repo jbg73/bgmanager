@@ -14,30 +14,27 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurity {
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
-    public static PasswordEncoder passwordEncoder()
-    {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
-    {
-        http.authorizeHttpRequests(authorizeRequests->authorizeRequests
-                                                            .anyRequest()
-                                                            .permitAll())
-                                                            .csrf(configurer->configurer.disable()
-        );
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                .anyRequest()
+                .permitAll())
+                .csrf(configurer -> configurer.disable());
 
-        return http.build();                                                         
+        return http.build();
     }
 
-    @Autowired 
-    void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+    @Autowired
+    void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }

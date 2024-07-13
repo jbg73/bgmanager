@@ -11,27 +11,23 @@ import com.boardgames_manager.bgmanager.models.User;
 import com.boardgames_manager.bgmanager.repositories.UserRepository;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService{
-    
+public class CustomUserDetailsService implements UserDetailsService {
+
     private UserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository)
-    {
+    public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
-    {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
 
-        if (user != null)
-        {
+        if (user != null) {
             return new org.springframework.security.core.userdetails.User(
-                                                                        user.getEmail(),
-                                                                        user.getPassword(),
-                                                                        Collections.emptyList()
-            );
+                    user.getEmail(),
+                    user.getPassword(),
+                    Collections.emptyList());
         }
 
         throw new UsernameNotFoundException("Invalid username or password");

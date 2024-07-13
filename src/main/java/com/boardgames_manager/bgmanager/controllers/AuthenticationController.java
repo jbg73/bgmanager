@@ -11,10 +11,9 @@ import com.boardgames_manager.bgmanager.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 public class AuthenticationController {
-    
+
     private UserService userService;
 
     public AuthenticationController(UserService userService) {
@@ -22,16 +21,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> Registration( @RequestBody UserCreationRequest userDto) {
-        if (userService.CheckUserExist(userDto))
-        {
-            return new ResponseEntity<>("There is already an account registered with the same email", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> Registration(@RequestBody UserCreationRequest userDto) {
+        if (userService.CheckUserExist(userDto)) {
+            return new ResponseEntity<>("There is already an account registered with the same email",
+                    HttpStatus.BAD_REQUEST);
         }
 
         userService.CreateUser(userDto);
         return new ResponseEntity<UserCreationRequest>(userDto, HttpStatus.OK);
     }
 
-    
-    
 }

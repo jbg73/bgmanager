@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
-
 @RestController
 public class BoardGameController {
 
     private final BoardGameRepository board_game_repository_;
 
-    BoardGameController(BoardGameRepository repository){
+    BoardGameController(BoardGameRepository repository) {
         this.board_game_repository_ = repository;
     }
 
@@ -39,7 +36,5 @@ public class BoardGameController {
     BoardGame getMethodName(@PathVariable String name) {
         return board_game_repository_.findByName(name);
     }
-    
-    
-    
+
 }
