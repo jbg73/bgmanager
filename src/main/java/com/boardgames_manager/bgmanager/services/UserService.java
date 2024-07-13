@@ -21,12 +21,29 @@ public class UserService {
 
     public void CreateUser(UserCreationRequest userDto)
     {
+        User user = ConvertUserDtoToUserEntity(userDto);
+
+        userRepository.save(user);
+    }
+
+    public Boolean CheckUserExist(UserCreationRequest userDto)
+    {
+        User user = ConvertUserDtoToUserEntity(userDto);
+        if (userRepository.findByEmail(user.getEmail()) != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private User ConvertUserDtoToUserEntity(UserCreationRequest userDto)
+    {
         User user = new User();
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
-
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        userRepository.save(user);
+        return user;
     }
 }
