@@ -6,7 +6,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.boardgames_manager.bgmanager.models.UserCreationRequest;
+import com.boardgames_manager.bgmanager.dtos.LoginResponseDto;
+import com.boardgames_manager.bgmanager.dtos.UserLoginDto;
+import com.boardgames_manager.bgmanager.dtos.UserRegisterDto;
+import com.boardgames_manager.bgmanager.models.User;
+import com.boardgames_manager.bgmanager.services.JwtService;
 import com.boardgames_manager.bgmanager.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,20 +19,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AuthenticationController {
 
     private UserService userService;
+    private JwtService jwtService;
 
-    public AuthenticationController(UserService userService) {
+    public AuthenticationController(UserService userService, JwtService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> Registration(@RequestBody UserCreationRequest userDto) {
+    @PostMapping("/auth/signup")
+    public ResponseEntity<?> Signup(@RequestBody UserRegisterDto userDto) {
         if (userService.CheckUserExist(userDto)) {
             return new ResponseEntity<>("There is already an account registered with the same email",
                     HttpStatus.BAD_REQUEST);
         }
 
-        userService.CreateUser(userDto);
-        return new ResponseEntity<UserCreationRequest>(userDto, HttpStatus.OK);
+        userService.Signup(userDto);
+        return new ResponseEntity<UserRegisterDto>(userDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/auth/login")
+    public ResponseEntity<LoginResponseDto> Login(@RequestBody UserLoginDto userLoginDto) {
+
+        User authenticatedUser = userService.Authenticate(userLoginDto);
+
+        String jwtToken = jwtService.GenerateToken(authenticatedUser);
+
+        LoginResponseDto loginResponse = new LoginResponseDto();
+        loginResponse.setToken(jwtToken);
+        loginResponse.setExpiresIn(jwtService.getExpirationTime());
+
+        return ResponseEntity.ok(loginResponse);
     }
 
 }

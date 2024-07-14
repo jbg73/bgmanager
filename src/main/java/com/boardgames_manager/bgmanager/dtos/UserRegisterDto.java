@@ -1,6 +1,6 @@
-package com.boardgames_manager.bgmanager.models;
+package com.boardgames_manager.bgmanager.dtos;
 
-public class UserCreationRequest {
+public class UserRegisterDto {
     private String name;
     private String email;
     private String password;
